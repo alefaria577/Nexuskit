@@ -3,8 +3,6 @@
 
 ![Example](https://i.imgur.com/aLQOwy4.png)
 
-# NexusKit
-
 Ferramenta para o cliente do League of Legends.
 
 ## Download
