@@ -1,0 +1,8 @@
+.vs/
+x64/
+Debug/
+Release/
+NexusKit/x64/
+NexusKit/Debug/
+NexusKit/Release/
+NexusKit/config.JSON

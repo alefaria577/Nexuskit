@@ -1,0 +1,63 @@
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  build:
+    permissions:
+      id-token: write
+      contents: write
+    runs-on: windows-2022
+
+    steps:
+      - uses: actions/checkout@main
+
+      - uses: actions/checkout@master
+        with:
+          repository: microsoft/vcpkg
+          path: vcpkg
+
+      - name: Get short SHA
+        run: echo "SHORT_SHA=$("${{ github.sha }}".SubString(0, 8))" >> $env:GITHUB_ENV
+
+      - uses: microsoft/setup-msbuild@v2
+
+      - run: .\vcpkg\bootstrap-vcpkg.bat
+      - run: .\vcpkg\vcpkg integrate install
+      - run: .\vcpkg\vcpkg install freetype:x86-windows-static
+      - run: .\vcpkg\vcpkg install cpr:x86-windows-static
+      - run: .\vcpkg\vcpkg install jsoncpp:x86-windows-static
+
+      - name: Build solution
+        run: msbuild NexusKit.sln /p:Platform="x86" /p:Configuration=Release -m
+
+      - name: Upload build outputs
+        uses: actions/upload-artifact@v4
+        with:
+          name: NexusKit-${{ env.SHORT_SHA }}
+          path: Release/NexusKit.exe
+      
+      - name: Tag Repo
+        uses: richardsimko/update-tag@v1
+        with:
+          tag_name: prerelease
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+            
+
+      - name: Create Release
+        uses: ncipollo/release-action@v1.12.0
+        with:
+          artifacts: "Release/NexusKit.exe"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag: prerelease
+          name: NexusKit-${{ env.SHORT_SHA }}
+          allowUpdates: true
+          generateReleaseNotes: true
+          makeLatest: true
+          prerelease: true
+          updateOnlyUnreleased: true # Only update the latest release if it is not marked as released. Set it to true if needed.

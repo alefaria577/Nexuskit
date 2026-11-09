@@ -1,0 +1,26 @@
+NexusKit - versão renomeada do KBotExt 1.5.6 (mesma funcionalidade)
+
+O QUE MUDOU
+- Nome do projeto, solução e executável: NexusKit.sln / NexusKit.exe
+- Título da janela: "NexusKit - <patch> | Connected to ..."
+- Nome dos lobbies personalizados/Practice Tool criados pelo app: "NexusKit"
+- Informações do .exe (Propriedades > Detalhes e Gerenciador de Tarefas): NexusKit
+- Checagem de atualização: desligada (antes mandava baixar o KBotExt original).
+  Para religar apontando para o SEU repositório, edite APP_GITHUB_REPO em NexusKit/Branding.h
+- Aba Settings: links do autor original trocados por um crédito (exigido pela licença GPL-3.0)
+- config.JSON: mesmo nome e formato, suas configurações continuam valendo
+
+TROCAR PARA OUTRO NOME
+- Rápido: edite NexusKit/Branding.h (APP_NAME, APP_LOBBY_NAME).
+- Completo (inclui nome do .exe e do projeto): a partir do código ORIGINAL do KBotExt,
+    python trocar_nome.py KBotExt-1.5.6 MeuNome MeuNome
+
+COMPILAR (Windows)
+Opção A - Visual Studio 2022 (com "Desenvolvimento para desktop com C++"):
+  1. git clone https://github.com/microsoft/vcpkg.git && cd vcpkg && bootstrap-vcpkg.bat
+  2. vcpkg integrate install
+  3. vcpkg install freetype:x64-windows-static cpr:x64-windows-static jsoncpp:x64-windows-static
+  4. Abra NexusKit.sln, selecione Release | x64 e compile (Ctrl+Shift+B)
+  5. O exe sai em x64\Release\NexusKit.exe — coloque o config.JSON ao lado dele
+Opção B - Sem instalar nada: crie um repositório no GitHub, envie esta pasta
+  e o GitHub Actions compila sozinho (aba Actions > Release/NexusKit.exe, versão x86).
