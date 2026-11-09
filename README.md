@@ -67,4 +67,3 @@
   2. Open **NexusKit.sln** in Visual Studio (Recommended Visual Studio 2022)
   3. Set the solution platform to x64 Release
   4. Build the project
-  5. Feel free to make a pull request with your changes :-)
