@@ -1,7 +1,4 @@
 # NexusKit
-
-Versão renomeada do [KBotExt](https://github.com/KebsCS/KBotExt) de KebsCS, com a mesma funcionalidade. Licença original: GPL-3.0.
-
 ---
 
 ![Example](https://i.imgur.com/aLQOwy4.png)
